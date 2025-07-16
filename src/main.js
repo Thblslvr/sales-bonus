@@ -10,7 +10,9 @@ function calculateSimpleRevenue(purchase, _product) {
   const { purchase_price } = _product;
   const totalSale = sale_price * quantity;
   const totalCost = purchase_price * quantity;
-  return totalSale - (totalSale * discount) / 100 - totalCost;
+  console.log(totalCost);
+  
+  return totalSale - (totalSale * discount) / 100;
 }
 
 /**
@@ -107,7 +109,8 @@ function analyzeSalesData(data, options) {
 
       // Рассчитываем прибыль по позиции
       const itemProfit = calculateRevenue(item, product);
-      seller.profit += itemProfit;
+      const itemCost = product.purchase_price * item.quantity;
+      seller.profit += itemProfit - itemCost;
 
       // Учет количества проданных товаров
       if (!seller.products_sold[item.sku]) {
